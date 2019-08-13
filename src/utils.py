@@ -70,4 +70,5 @@ def read_meRanCall(filename, logfile=None):
 
         item = (ID, refPos, refStrand)
         result.append(item)
+    out("...\tRead {} Lines".format(len(result)), logfile)
     return result
