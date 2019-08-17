@@ -139,15 +139,18 @@ def main():
                         relative_position_feature=True,
                     )
     parser.add_argument("--gtf",   type=str)
+    parser.add_argument("--gff",   type=str)
     parser.add_argument("--bed",   type=str)
     parser.add_argument("--fasta",   type=str)
     parser.add_argument("--input", type=str, required=True, 
                         help="Input meRanCall File is a tab-delimited file with the first 3 columns being the Transcript_ID, Position, and Strand respectively")
     parser.add_argument("--output", type=str, required=True)
-
-    #parser.add_argument("--output-log", type=str, default="log.txt")
-    #parser.add_argument("--output-log", type=str, default=None)
     args = parser.parse_args()
+
+    # If the user inputs a gff file instead, 
+    # our read_gtf function handles either
+    if args.gff is not None:
+        args.gtf = args.gff
 
     args.output_log = os.path.splitext(os.path.basename(args.input))[0] + "_log.txt"
     args.logfile = open(args.output_log, "w") if args.output_log is not None else None
