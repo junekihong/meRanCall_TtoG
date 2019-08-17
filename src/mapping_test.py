@@ -12,8 +12,19 @@ def run(args):
 
     out("Random Indexing Test:", args.logfile)
     for i, (ID,sequence) in enumerate(fasta.items()):
+
+        print(ID)
+        if "|" in ID:
+            ID = ID.split("|")[3]
+        gtf_items = gtf[ID]
+        if not gtf_items:
+            ID = ".".join(ID.split(".")[:-1])
+            gtf_items = gtf[ID]
+        print(ID)
+
         gtf_items = gtf[ID]
         exons = [(start,end) for _,start,end,_ in gtf_items]
+        print(gtf_items)
         strand = gtf_items[0][3]
         chrom  = gtf_items[0][0]
 
