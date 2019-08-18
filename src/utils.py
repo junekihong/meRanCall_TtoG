@@ -108,8 +108,12 @@ def read_meRanCall(filename, logfile=None):
         ID        = line[0]
         refPos    = int(line[1]) - 1
         refStrand = line[2]
+        
+        #coverage = int(line[4])
+        #C_count  = int(line[5])
+        methRate  = float(line[6])
 
-        item = (ID, refPos, refStrand)
+        item = (ID, refPos, refStrand, methRate)
         result.append(item)
     out("...\tRead {} Lines".format(len(result)), logfile)
     return result

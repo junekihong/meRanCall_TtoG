@@ -54,7 +54,8 @@ def run(args):
     outfile = open(args.output, "w")
     errfile = open(args.error_out, "w")
 
-    header = "# <chromosome> <genomic position> <strand> <transcript ID>\n"
+
+    header = "# <chromosome> <genomic position> <strand> <methylation rate> <transcript ID> <transcript position>\n"
     outfile.write(header)
 
     sequence = None
@@ -63,7 +64,7 @@ def run(args):
     sequence_length_check_errors = 0
     sequence_length_check_error_transcripts = set()
 
-    for ID, refPos, refStrand in meRanCall:
+    for ID, refPos, refStrand, methRate in meRanCall:
         if sequences is not None:
             sequence = sequences[ID]
         
@@ -111,7 +112,7 @@ def run(args):
         chrom  = coordinates[0][0]
         genomic_position = find_location(refPos, coordinates)
 
-        line = "\t".join((chrom, str(genomic_position), strand, ID)) + "\n"
+        line = "\t".join((chrom, str(genomic_position), strand, str(methRate), ID, str(refPos))) + "\n"
         outfile.write(line)
 
     out("Finished writing to: {}".format(args.output), args.logfile)
